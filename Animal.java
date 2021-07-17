@@ -1,3 +1,6 @@
+// Access Modifiers: 
+// class cant be private or protected except nested classes 
+// Over ridden method must not be more restrictive 
 public class Animal {
 
     // encapsulation or data hiding: wrapping var and methods.
@@ -71,12 +74,12 @@ public class Animal {
         return this;
     }
 
-    public static void hello(String[] args) {
+    public static void main(String[] args) {
         // There is no default constructor as we defined atleast one constructor
         // Animal dog = new Animal();
 
-        Animal dogObj = new Dog();// Upcasting
-        ((Dog) dogObj).bark();
+        Animal dogObj = new Dog();// Upcasting: can access only parent var and overridden methods !!
+        ((Dog) dogObj).bark();// to access other methods u shd typecase
 
         // OVERRIDING
         // static method belongs to cls area hence cant over ride
@@ -90,6 +93,21 @@ public class Animal {
         // or runtime poly
         a2.print();
         // data are not overridden ,hence runtime poly not possible
+
+        // DOWNCASTING
+        // Dog d = new Animal() ; complite time errror
+        // Dog d = (Dog) new Animal("hii"); // RTE : class cast exception .
+        Animal a = new Dog();
+        // Real world example :
+        // https://www.javatpoint.com/downcasting-with-instanceof-operator
+        // this is how to do
+        if (a instanceof Dog) {
+            Dog d = (Dog) a;
+            d.bark();
+        }
+        // same done using a static method
+        Dog.method(a);
+
     }
 }
 
@@ -103,6 +121,15 @@ class Dog extends Animal {
 
     void bark() {
         System.out.printf("barking");
+    }
+
+    // Example of how to downcasting
+    static void method(Animal a) {
+        if (a instanceof Dog) {
+            Dog d = (Dog) a;// downcasting
+            d.bark();
+            System.out.println("ok downcasting performed");
+        }
     }
 
     // Aggregation :
@@ -169,3 +196,49 @@ class A2 extends A1 {
         System.out.println("Inside the class A2");
     }
 }
+
+// Abstraction : hiding implementation n showing functionality
+// While extending abs cls : make it abs or provie implementation
+abstract class Abscls {
+    Abscls() {
+        System.out.println("Abscls is created");
+    }
+
+    // if abs method present class must b abstract
+    abstract void absmethod();// no body
+}
+
+// multiple inheritance psble with interface as implementation is provided by
+// cls which inherits
+interface interface_name {
+
+    // Since java 8
+    // shd have a body
+    default void defvar() {
+        System.out.printf("default method inside interface ");
+    };
+
+    // Since java 9
+    static void statmethod() {
+        System.out.printf("Static method inside interface ");
+
+    }
+
+    int min = 5;// public static final int min = 5
+
+    void print(); // public abstract void print()
+}
+
+interface NoMembers {
+    // called marker or tagged interface
+}
+
+// When to use Abstract Classes :
+// ->providing functionality to unrelated clsses
+// ->Whenever one requires common methods among classes and the access
+// specifiers of those methods are non- public
+// (as in interface everything is public )
+
+// when interface :
+// -> multiple inheritance
+// -> providing functionality to unrel clsses
