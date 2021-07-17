@@ -39,7 +39,8 @@ public class Animal {
 
     // CONSTRUCTOR :
     // default and paramaterized
-    // cannot be abstract, static, final, and synchronized
+    // cannot be abstract(no sense), static(belongs to obj), final(not inherited ),
+    // and synchronized
     // can hv access specifiers
     // returns current cls instance
     // there is constructor class in java.lang.reflect
@@ -74,8 +75,8 @@ public class Animal {
         // There is no default constructor as we defined atleast one constructor
         // Animal dog = new Animal();
 
-        Animal dog = new Dog();
-        ((Dog) dog).bark();
+        Animal dogObj = new Dog();// Upcasting
+        ((Dog) dogObj).bark();
 
         // OVERRIDING
         // static method belongs to cls area hence cant over ride
@@ -83,8 +84,12 @@ public class Animal {
         // stay away from the confusing type casts
 
         A2 a2 = new A2();
-        ((A2) a2.foo()).print();
+        ((A2) a2.foo()).print();// can be prevented if foo in A2 return value is changed to A2
 
+        // dynamic binding(late binding : type of obj is decided at runtime )
+        // or runtime poly
+        a2.print();
+        // data are not overridden ,hence runtime poly not possible
     }
 }
 
@@ -117,9 +122,24 @@ class Dog extends Animal {
 }
 
 class A1 {
+    // blank
+    final int maxspeed;
+    // static blank
+    final static int stafivar;
+    static {
+        // psble only in static block
+        stafivar = 100;
+    }
 
+    A1() {
+        // final var can be initialized only in constructor
+        maxspeed = 100;
+    }
+
+    // cant extend final class , over ride final method
     A1 foo() {
         return this;
+
     }
 
     void print() {
