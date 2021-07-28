@@ -75,6 +75,7 @@ public class Animal {
     }
 
     public static void main(String[] args) {
+
         // There is no default constructor as we defined atleast one constructor
         // Animal dog = new Animal();
 
@@ -82,7 +83,7 @@ public class Animal {
         ((Dog) dogObj).bark();// to access other methods u shd typecase
 
         // OVERRIDING
-        // static method belongs to cls area hence cant over ride
+        // static method belongs to cls area hence cant over ride!!!
         // Covariant return type :
         // stay away from the confusing type casts
 
@@ -211,6 +212,7 @@ abstract class Abscls {
 // multiple inheritance psble with interface as implementation is provided by
 // cls which inherits
 interface interface_name {
+    // Cant have a constructor .
 
     // Since java 8
     // shd have a body
@@ -224,6 +226,7 @@ interface interface_name {
 
     }
 
+    // its an static var not an instance var
     int min = 5;// public static final int min = 5
 
     void print(); // public abstract void print()
